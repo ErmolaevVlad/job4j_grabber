@@ -15,7 +15,7 @@ public class Main {
 
     public static void main(String[] args) {
         var config = new Config();
-        config.load("C:\\projects\\job4j_grabber\\src\\main\\resources\\application.properties");
+        config.load("application.properties");
         try (var connection = DriverManager.getConnection(
                 config.get("db.url"),
                 config.get("db.username"),
@@ -31,7 +31,8 @@ public class Main {
                     Integer.parseInt(config.get("rabbit.interval")),
                     SuperJobGrab.class,
                     store);
-        } catch (SQLException e) {
+            Thread.sleep(10000);
+        } catch (SQLException | InterruptedException e) {
             LOG.error("When create a connection", e);
         }
     }

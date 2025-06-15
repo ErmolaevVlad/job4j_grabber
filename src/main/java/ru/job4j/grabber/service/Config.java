@@ -12,7 +12,7 @@ public class Config {
     private final Properties properties = new Properties();
 
     public void load(String file) {
-        try (var input = new BufferedReader(new FileReader(file))) {
+        try (var input = Config.class.getClassLoader().getResourceAsStream(file)) {
             properties.load(input);
         } catch (IOException io) {
             LOG.error(String.format("When load file : %s", file), io);

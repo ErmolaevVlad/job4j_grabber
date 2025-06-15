@@ -8,7 +8,7 @@ import static org.quartz.JobBuilder.newJob;
 import static org.quartz.SimpleScheduleBuilder.simpleSchedule;
 import static org.quartz.TriggerBuilder.newTrigger;
 
-public class SchedulerManager {
+public class SchedulerManager implements AutoCloseable {
     private static final Logger LOG = Logger.getLogger(SchedulerManager.class);
     private Scheduler scheduler;
 
@@ -36,7 +36,6 @@ public class SchedulerManager {
                     .startNow()
                     .withSchedule(times)
                     .build();
-
             scheduler.scheduleJob(job, trigger);
         } catch (SchedulerException se) {
             LOG.error("When init job", se);
