@@ -31,6 +31,7 @@ public class HabrCareerParse implements Parse {
                     String vacancyName = titleElement.text();
                     String link = String.format("%s%s", SOURCE_LINK,
                             linkElement.attr("href"));
+                    String description = retrieveDescription(link);
                     var post = new Post();
                     post.setTitle(vacancyName);
                     post.setLink(link);
@@ -41,5 +42,18 @@ public class HabrCareerParse implements Parse {
             }
         }
         return result;
+    }
+
+    private String retrieveDescription(String link) {
+        String rsl;
+        try {
+            var connection = Jsoup.connect(link);
+            var document = connection.get();
+            var rows = document.select(".style-ugc");
+            rsl = rows.text();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return rsl;
     }
 }
