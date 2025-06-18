@@ -24,7 +24,7 @@ public class HabrCareerParse implements Parse {
             var rows = document.select(".vacancy-card__inner");
             rows.forEach(row -> {
                 var dataElement =  row.select(".basic-date").first();
-                String date = String.format("%s", dataElement.attr("datetime"));
+                String date = dataElement.attr("datetime");
                 var titleElement = row.select(".vacancy-card__title").first();
                 var linkElement = titleElement.child(0);
                 String vacancyName = titleElement.text();
