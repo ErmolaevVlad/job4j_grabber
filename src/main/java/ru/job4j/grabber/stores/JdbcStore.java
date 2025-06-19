@@ -45,8 +45,10 @@ public class JdbcStore implements Store {
                 connection.prepareStatement(" SELECT * FROM post")) {
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
-                posts.add(new Post(rs.getLong("id"), rs.getString("title"),
-                        rs.getString("link"), rs.getString("description"),
+                posts.add(new Post(rs.getLong("id"),
+                        rs.getString("title"),
+                        rs.getString("link"),
+                        rs.getString("description"),
                         rs.getTimestamp("time").getTime()));
             }
         } catch (Exception e) {
